@@ -23,7 +23,9 @@ class PepSpider(scrapy.Spider):
     def parse_pep(self, response):
         """Parse single PEP page, get PEPs number, name and status."""
         pep_title = response.css('h1.page-title::text').get()
-        pattern = re.compile(r'PEP\s(?P<pep_number>\d+)\s–\s(?P<pep_name>.+)')
+        pattern = re.compile(
+            r'PEP\s(?P<pep_number>\d+)\s–\s(?P<pep_name>.+)'
+        )
         num_and_name = re.search(pattern, pep_title)
         status = response.css('dt:contains("Status") + dd::text').get()
         yield PepParseItem(
