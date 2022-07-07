@@ -25,6 +25,5 @@ class PepParsePipeline:
         with open(report_file, 'w', encoding='utf-8') as csvfile:
             writer = csv.writer(csvfile)
             writer.writerow(['Статус', 'Количество'])
-            for status in self.pep_statuses.items():
-                writer.writerow(status)
+            writer.writerows(self.pep_statuses.items())
             writer.writerow(['Total', total])
