@@ -1,7 +1,13 @@
 import csv
 from collections import defaultdict
+from pathlib import Path
+from datetime import datetime as dt
 
-from pep_parse.settings import PEP_STATUS_REPORT_FILE
+
+DATETIME_FORMAT = '%Y-%m-%dT%H-%M-%S'
+DATETIME = dt.now().strftime(DATETIME_FORMAT)
+
+BASE_DIR = Path(__file__).parent.parent
 
 
 class PepParsePipeline:
@@ -15,7 +21,8 @@ class PepParsePipeline:
 
     def close_spider(self, spider):
         total = sum(self.pep_statuses.values())
-        with open(PEP_STATUS_REPORT_FILE, 'w', encoding='utf-8') as csvfile:
+        report_file = BASE_DIR / 'results' / f'status_summary_{DATETIME}.csv'
+        with open(report_file, 'w', encoding='utf-8') as csvfile:
             writer = csv.writer(csvfile)
             writer.writerow(['Статус', 'Количество'])
             for status in self.pep_statuses.items():

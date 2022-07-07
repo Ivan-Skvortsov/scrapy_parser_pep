@@ -9,7 +9,7 @@ class PepSpider(scrapy.Spider):
     """Parse peps.python.org, get all PEP data: number, name, status."""
     name = 'pep'
     allowed_domains = ['peps.python.org']
-    start_urls = ['http://peps.python.org']
+    start_urls = ['https://peps.python.org/']
 
     def parse(self, response):
         """Parse main page, get all links to all PEP pages."""

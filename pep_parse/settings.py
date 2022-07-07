@@ -1,15 +1,3 @@
-from pathlib import Path
-from datetime import datetime as dt
-
-
-DATETIME_FORMAT = '%Y-%m-%dT%H:%M:%S'
-DATETIME = dt.now().strftime(DATETIME_FORMAT)
-
-BASE_DIR = Path(__file__).parent
-RESULTS_DIR = BASE_DIR / 'results'
-PEP_LIST_REPORT_FILE = RESULTS_DIR / f'pep_{DATETIME}.csv'
-PEP_STATUS_REPORT_FILE = RESULTS_DIR / f'status_summary_{DATETIME}.csv'
-
 BOT_NAME = 'pep_parse'
 
 SPIDER_MODULES = ['pep_parse.spiders']
@@ -22,10 +10,9 @@ ITEM_PIPELINES = {
 }
 
 FEEDS = {
-    PEP_LIST_REPORT_FILE: {
+    'results/pep_%(time)s.csv': {
         'format': 'csv',
         'fields': ['number', 'name', 'status'],
-        'overwrite': True,
-        'item_export_kwargs': {"include_headers_line": False}
+        'overwrite': True
     }
 }
